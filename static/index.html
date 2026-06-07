@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indice Hospitalar | Arvore Rubro-Negra</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/tree.js" defer></script>
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">RN</div>
+          <div>
+            <span class="eyebrow">Sistema Hospitalar</span>
+            <h1>Indice de Pacientes</h1>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <form class="quick-search" id="searchForm" autocomplete="off">
+            <label class="sr-only" for="cpfSearch">Buscar paciente por CPF</label>
+            <input
+              id="cpfSearch"
+              name="cpf"
+              inputmode="numeric"
+              maxlength="14"
+              placeholder="Buscar CPF"
+              type="text"
+            />
+            <button class="button primary" id="searchButton" type="submit">
+              <span class="icon icon-search" aria-hidden="true"></span>
+              <span>Buscar</span>
+            </button>
+          </form>
+
+          <button class="button secondary" id="demoButton" type="button">
+            <span class="icon icon-database" aria-hidden="true"></span>
+            <span>Dados demo</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="left-rail" aria-label="Operacoes de pacientes">
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <span class="eyebrow">Cadastro</span>
+                <h2>Novo paciente</h2>
+              </div>
+              <span class="status-chip">Insercao O(log n)</span>
+            </div>
+
+            <form id="patientForm" autocomplete="off">
+              <div class="field-grid">
+                <label class="field">
+                  <span>CPF</span>
+                  <input
+                    id="cpfInput"
+                    name="cpf"
+                    inputmode="numeric"
+                    maxlength="14"
+                    placeholder="000.000.000-00"
+                    required
+                    type="text"
+                  />
+                </label>
+
+                <label class="field">
+                  <span>Idade</span>
+                  <input
+                    id="ageInput"
+                    name="idade"
+                    max="150"
+                    min="0"
+                    placeholder="42"
+                    required
+                    type="number"
+                  />
+                </label>
+
+                <label class="field field-full">
+                  <span>Nome completo</span>
+                  <input
+                    id="nameInput"
+                    name="nome"
+                    placeholder="Nome do paciente"
+                    required
+                    type="text"
+                  />
+                </label>
+
+                <label class="field field-full">
+                  <span>Prontuario</span>
+                  <textarea
+                    id="recordInput"
+                    name="prontuario"
+                    placeholder="Historico clinico, alergias, diagnosticos e observacoes"
+                    required
+                    rows="5"
+                  ></textarea>
+                </label>
+              </div>
+
+              <div class="form-actions">
+                <button class="button primary wide" id="createButton" type="submit">
+                  <span class="icon icon-plus" aria-hidden="true"></span>
+                  <span>Cadastrar no indice</span>
+                </button>
+                <button class="button ghost" id="clearFormButton" type="button">
+                  Limpar
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <section class="panel selected-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="eyebrow">Prontuario</span>
+                <h2>Paciente selecionado</h2>
+              </div>
+            </div>
+            <div class="patient-result empty-state" id="patientResult">
+              <strong>Nenhum paciente selecionado</strong>
+              <span>Busque por CPF ou escolha um no mapa da arvore.</span>
+            </div>
+          </section>
+        </aside>
+
+        <section class="main-stage" aria-label="Visualizacao da arvore">
+          <div class="metrics-row">
+            <article class="metric">
+              <span>Pacientes</span>
+              <strong id="statTotal">0</strong>
+            </article>
+            <article class="metric">
+              <span>Altura</span>
+              <strong id="statHeight">0</strong>
+            </article>
+            <article class="metric">
+              <span>Nos vermelhos</span>
+              <strong id="statRed">0</strong>
+            </article>
+            <article class="metric">
+              <span>Nos pretos</span>
+              <strong id="statBlack">0</strong>
+            </article>
+          </div>
+
+          <section class="panel tree-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="eyebrow">Arvore Rubro-Negra</span>
+                <h2>Mapa do indice por CPF</h2>
+              </div>
+              <span class="status-chip" id="complexityBadge">Aguardando dados</span>
+            </div>
+
+            <div class="tree-canvas" id="treeCanvas" aria-live="polite"></div>
+          </section>
+
+          <section class="panel ordered-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="eyebrow">Ordem crescente</span>
+                <h2>CPFs indexados</h2>
+              </div>
+            </div>
+            <div class="index-list" id="patientList"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>
