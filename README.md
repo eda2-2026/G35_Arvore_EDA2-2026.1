@@ -298,7 +298,7 @@ Invoke-RestMethod -Uri "http://localhost:5000/api/arvore/estrutura"
 
 ## Video
 
-[Projeto de EDA2 - Árvore Vermelha e Preta ](https://youtu.be/ze3-fJi29vw)
+[Projeto de EDA2 - Árvore Vermelha e Preta ](https://youtu.be/BPSynM-WhU0)
 
 ## Integrantes da Equipe
 
